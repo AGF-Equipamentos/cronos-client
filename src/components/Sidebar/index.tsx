@@ -1,6 +1,7 @@
 import { Stack } from '@chakra-ui/react'
-import { NavLink } from '@chakra-ui/react'
-import { NavSection } from '@chakra-ui/react'
+import { NavLink } from './NavLink'
+import { NavSection } from './NavSection'
+import { IconType } from 'react-icons/lib'
 
 export type SidebarProps = {
   menuItems: MenuItem[]
@@ -11,22 +12,22 @@ type MenuItem = {
   menus: {
     title: string
     link: string
-    icon: string
+    icon: IconType
   }[]
 }
 
 const Sidebar = ({ menuItems }: SidebarProps) => {
   return (
-    <Stack spacing="12" align="flex-start" >
+    <Stack spacing="12" align="flex-start">
       {menuItems.map((menuItem) => (
-        <NavSection title={menuItem.section}>
-        menuItem.menus.map((menu) => (
-          <NavLink icon={menu.icon} href={menu.link}>
-            {menu.title}
-          </NavLink>
+        <NavSection title={menuItem.section} key={menuItem.section}>
+          {menuItem.menus.map((menu) => (
+            <NavLink key={menu.link} icon={menu.icon} href={menu.link}>
+              {menu.title}
+            </NavLink>
+          ))}
         </NavSection>
-        ))
-      )}
+      ))}
     </Stack>
   )
 }

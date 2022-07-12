@@ -25,8 +25,8 @@ const sidebarMock = [
     section: 'COMPRAS',
     menus: [
       {
-        title: 'Pedidos',
-        link: '/orders',
+        title: 'Aprovações',
+        link: '/approvals',
         icon: RiInputMethodLine
       },
       {
