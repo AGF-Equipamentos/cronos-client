@@ -30,8 +30,8 @@ const sidebarMock = [
         icon: RiInputMethodLine
       },
       {
-        title: 'Usuários',
-        link: '/users',
+        title: 'Cancelamento',
+        link: '/cancel',
         icon: RiGitMergeLine
       },
       {
