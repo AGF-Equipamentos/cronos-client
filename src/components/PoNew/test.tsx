@@ -1,13 +1,19 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 
 import PoNew from '.'
 
+const props = {
+  handleCancel: () => null,
+  handlStart: () => null
+}
+
 describe('<PoNew />', () => {
-  it('should render the heading', () => {
-    const { container } = render(<PoNew />)
+  it('should call handleCancel with process_id', () => {
+    const handleCancel = jest.fn()
+    render(<PoNew {...props} handleCancel={handleCancel} />)
 
-    expect(screen.getByRole('heading', { name: /PoNew/i })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
 
-    expect(container.firstChild).toMatchSnapshot()
+    expect(handleCancel).toHaveBeenCalledWith('0001')
   })
 })
