@@ -8,12 +8,12 @@ const props = {
 }
 
 describe('<PoNew />', () => {
-  it('should call handleCancel with process_id', () => {
-    const handleCancel = jest.fn()
-    render(<PoNew {...props} handleCancel={handleCancel} />)
+  it('should call handleStart with process_id', () => {
+    const handleStart = jest.fn()
+    render(<PoNew {...props} codigo={'VIXMOT0011'} handleStart={handleStart} />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Start' }))
 
-    expect(handleCancel).toHaveBeenCalledWith('0001')
+    expect(handleStart).toHaveBeenCalledWith('0001')
   })
 })

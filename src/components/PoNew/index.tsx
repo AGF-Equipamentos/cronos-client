@@ -16,28 +16,19 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { FiX, FiPlay } from 'react-icons/fi'
 import { Dropdown } from 'components/Dropdown'
-import { useRef } from 'react'
 
 export type PoNewProps = {
-  process_id: string
-  part_number: string
-  qty: number
-  department: string
-  workstation: string
-  process: string
-  handleCancel: (process_id: string) => void
-  handleStart: (process_id: string) => void
+  codigo: string
+  handleCancel: (codigo: string) => void
+  handleStart: (codigo: string) => void
 }
 
 const createPoNewFormSchema = yup.object().shape({
-  part_number: yup.string().required('Codigo Obrigatório'),
-  qty: yup.number(),
-  department: yup.string().required('Departamento Obrigatório'),
-  workstation: yup.string().required('Posto de Trabalho Obrigatório'),
-  process: yup.string().required('Processo Obrigatório')
+  codigo: yup.string().required('Codigo Obrigatório'),
+  qty: yup.number()
 })
 
-export default function PoNew() {
+export default function PoNew({ codigo, handleStart }: PoNewProps) {
   const {
     register,
     formState: { errors }
@@ -45,12 +36,7 @@ export default function PoNew() {
     resolver: yupResolver(createPoNewFormSchema)
   })
 
-  const {
-    isOpen: isPauseOpen,
-    onOpen: onPauseOpen,
-    onClose: onPauseClose
-  } = useDisclosure()
-  const cancelPauseRef = useRef(null)
+  const { onOpen: onCancelOpen } = useDisclosure()
 
   return (
     <Box>
@@ -65,13 +51,11 @@ export default function PoNew() {
           <VStack spacing="8">
             <SimpleGrid minChildWidth="240px" spacing={['6', '8']} w="100%">
               <Input
-                name="part_number"
                 label="Código"
-                error={errors.part_number}
-                {...register('part_number')}
+                error={errors.codigo}
+                {...register('codigo')}
               />
               <Input
-                name="qty"
                 label="Quatidade"
                 error={errors.qty}
                 {...register('qty')}
@@ -171,13 +155,14 @@ export default function PoNew() {
           <Flex mt="8" justify="flex-end">
             <HStack spacing="4">
               <Button
-                onClick={onPauseOpen}
+                onClick={onCancelOpen}
                 textColor="gray.800"
                 leftIcon={<Icon as={FiX} fontSize="16" />}
               >
                 Cancelar
               </Button>
               <Button
+                onClick={() => handleStart(codigo)}
                 textColor="gray.800"
                 colorScheme="yellow"
                 leftIcon={<Icon as={FiPlay} fontSize="16" />}
