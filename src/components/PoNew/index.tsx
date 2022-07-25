@@ -7,41 +7,63 @@ import {
   HStack,
   Icon,
   SimpleGrid,
-  useDisclosure,
   VStack
 } from '@chakra-ui/react'
 import * as yup from 'yup'
 import { Input } from '../Input'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { useRouter } from 'next/router'
 import { FiX, FiPlay } from 'react-icons/fi'
 import { Dropdown } from 'components/Dropdown'
 
+type CreatePoNewFormData = {
+  codigo: string
+  qty: number
+  department: string
+  workstation: string
+  process: string
+}
+
 export type PoNewProps = {
   codigo: string
-  handleCancel: (codigo: string) => void
   handleStart: (codigo: string) => void
 }
 
 const createPoNewFormSchema = yup.object().shape({
   codigo: yup.string().required('Codigo Obrigatório'),
-  qty: yup.number()
+  qty: yup.number().required('Quantidade Obrigatória'),
+  department: yup.string().required(),
+  workstation: yup.string().required(),
+  process: yup.string().required()
 })
 
 export default function PoNew({ codigo, handleStart }: PoNewProps) {
   const {
     register,
-    formState: { errors }
-  } = useForm({
-    resolver: yupResolver(createPoNewFormSchema)
-  })
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useForm({ resolver: yupResolver(createPoNewFormSchema) })
 
-  const { onOpen: onCancelOpen } = useDisclosure()
+  const handleCreatePoNew: SubmitHandler<CreatePoNewFormData> = async (
+    values
+  ) => {
+    console.log(values)
+  }
+
+  const router = useRouter()
 
   return (
     <Box>
       <Flex w="100%" my="6" maxWidth={800} mx="auto" px="6">
-        <Box as="form" flex="1" borderRadius={8} bg="gray.800" p={['6', '8']}>
+        <Box
+          as="form"
+          onSubmit={handleSubmit(handleCreatePoNew)}
+          flex="1"
+          borderRadius={8}
+          bg="gray.800"
+          p={['6', '8']}
+        >
           <Heading size="lg" fontWeight="normal">
             Nova OP
           </Heading>
@@ -155,17 +177,18 @@ export default function PoNew({ codigo, handleStart }: PoNewProps) {
           <Flex mt="8" justify="flex-end">
             <HStack spacing="4">
               <Button
-                onClick={onCancelOpen}
+                onClick={() => router.back()}
                 textColor="gray.800"
                 leftIcon={<Icon as={FiX} fontSize="16" />}
               >
                 Cancelar
               </Button>
               <Button
-                onClick={() => handleStart(codigo)}
                 textColor="gray.800"
                 colorScheme="yellow"
+                type="submit"
                 leftIcon={<Icon as={FiPlay} fontSize="16" />}
+                isLoading={isSubmitting}
               >
                 Iniciar
               </Button>
