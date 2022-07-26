@@ -10,7 +10,9 @@ const props = {
 describe('<PoNew />', () => {
   it('should call handleStart with process_id', () => {
     const handleStart = jest.fn()
-    render(<PoNew {...props} codigo={'VIXMOT0011'} handleStart={handleStart} />)
+    render(
+      <PoNew {...props} part_number={'VIXMOT0011'} handleStart={handleStart} />
+    )
 
     fireEvent.click(screen.getByRole('button', { name: 'Start' }))
 

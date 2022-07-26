@@ -14,5 +14,5 @@ export const Default: Story<PoNewProps> = (args) => (
 )
 
 Default.args = {
-  codigo: 'VIXMOT0011'
+  part_number: 'VIXMOT0011'
 }

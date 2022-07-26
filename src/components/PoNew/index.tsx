@@ -18,7 +18,7 @@ import { FiX, FiPlay } from 'react-icons/fi'
 import { Dropdown } from 'components/Dropdown'
 
 type CreatePoNewFormData = {
-  codigo: string
+  part_number: string
   qty: number
   department: string
   workstation: string
@@ -26,29 +26,42 @@ type CreatePoNewFormData = {
 }
 
 export type PoNewProps = {
-  codigo: string
-  handleStart: (codigo: string) => void
+  part_number: string
+  handleStart: (formData: CreatePoNewFormData) => void
 }
 
-const createPoNewFormSchema = yup.object().shape({
-  codigo: yup.string().required('Codigo Obrigatório'),
-  qty: yup.number().required('Quantidade Obrigatória'),
-  department: yup.string().required(),
-  workstation: yup.string().required(),
-  process: yup.string().required()
+yup.setLocale({
+  number: {
+    positive: 'Somente quantidades positivas'
+  }
 })
 
-export default function PoNew({ codigo, handleStart }: PoNewProps) {
+const createPoNewFormSchema = yup.object().shape({
+  part_number: yup.string().required('Codigo Obrigatório'),
+  qty: yup
+    .number()
+    .positive()
+    .integer()
+    .required('Quantidade obrigatória')
+    .typeError('Digite apenas números'),
+  department: yup.string().required('Escolha um departamento'),
+  workstation: yup.string().required('Escolha um posto de trabalho'),
+  process: yup.string().required('Escolha um processo')
+})
+
+export default function PoNew({ handleStart }: PoNewProps) {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting }
-  } = useForm({ resolver: yupResolver(createPoNewFormSchema) })
+  } = useForm<CreatePoNewFormData>({
+    resolver: yupResolver(createPoNewFormSchema)
+  })
 
   const handleCreatePoNew: SubmitHandler<CreatePoNewFormData> = async (
     values
   ) => {
-    console.log(values)
+    handleStart(values)
   }
 
   const router = useRouter()
@@ -58,11 +71,11 @@ export default function PoNew({ codigo, handleStart }: PoNewProps) {
       <Flex w="100%" my="6" maxWidth={800} mx="auto" px="6">
         <Box
           as="form"
-          onSubmit={handleSubmit(handleCreatePoNew)}
           flex="1"
           borderRadius={8}
           bg="gray.800"
           p={['6', '8']}
+          onSubmit={handleSubmit(handleCreatePoNew)}
         >
           <Heading size="lg" fontWeight="normal">
             Nova OP
@@ -74,8 +87,9 @@ export default function PoNew({ codigo, handleStart }: PoNewProps) {
             <SimpleGrid minChildWidth="240px" spacing={['6', '8']} w="100%">
               <Input
                 label="Código"
-                error={errors.codigo}
-                {...register('codigo')}
+                error={errors.part_number}
+                {...register('part_number')}
+                placeholder="Ex: VIXMOT0011"
               />
               <Input
                 label="Quatidade"
@@ -88,6 +102,7 @@ export default function PoNew({ codigo, handleStart }: PoNewProps) {
               <Dropdown
                 placeholder="Selecione um departamento"
                 label="Departamento"
+                error={errors.department}
                 items={[
                   {
                     label: 'Pintura',
@@ -115,6 +130,7 @@ export default function PoNew({ codigo, handleStart }: PoNewProps) {
               <Dropdown
                 placeholder="Selecione um posto de trabalho"
                 label="Posto de trabalho"
+                error={errors.workstation}
                 items={[
                   {
                     label: 'Posto de trabalho 01',
@@ -142,10 +158,11 @@ export default function PoNew({ codigo, handleStart }: PoNewProps) {
             </SimpleGrid>
 
             <SimpleGrid minChildWidth="240px" spacing={['6', '8']} w="100%">
-              <Box w="50%">
+              <Box w="100%">
                 <Dropdown
                   placeholder="Selecione um processo"
                   label="Processo"
+                  error={errors.process}
                   items={[
                     {
                       label: 'Pintura',

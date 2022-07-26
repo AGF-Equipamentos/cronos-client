@@ -26,6 +26,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         ref={ref}
         {...rest}
       />
+      {console.log(error)}
 
       {!!error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>

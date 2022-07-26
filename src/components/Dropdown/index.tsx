@@ -1,9 +1,10 @@
-import { Box, FormLabel, FormControl } from '@chakra-ui/react'
+import { Box, FormLabel, FormControl, FormErrorMessage } from '@chakra-ui/react'
 import {
   Select as ChakraSelect,
   SelectProps as ChakraSelectProps
 } from '@chakra-ui/react'
 import { forwardRef, ForwardRefRenderFunction } from 'react'
+import { FieldError } from 'react-hook-form'
 
 export type SelectProps = {
   name: string
@@ -12,21 +13,22 @@ export type SelectProps = {
     label: string
     value: number | string
   }[]
+  error?: FieldError
 } & ChakraSelectProps
 
 const DropdownBase: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
-  { name, label, items, ...rest },
+  { name, label, error = null, items, ...rest },
   ref
 ) => (
   <Box>
-    <FormControl>
+    <FormControl isInvalid={!!error}>
       {!!label && <FormLabel htmlFor={name}>{label}</FormLabel>}
       <ChakraSelect
         name={name}
         id={name}
-        {...rest}
         ref={ref}
         focusBorderColor="yellow.500"
+        {...rest}
       >
         {items?.map((item) => (
           <option key={item.value} value={item.value}>
@@ -34,6 +36,8 @@ const DropdownBase: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
           </option>
         ))}
       </ChakraSelect>
+
+      {!!error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>
   </Box>
 )
