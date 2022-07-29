@@ -14,5 +14,5 @@ export const Default: Story<PoNewProps> = (args) => (
 )
 
 Default.args = {
-  part_number: 'VIXMOT0011'
+  handleStart: () => true
 }

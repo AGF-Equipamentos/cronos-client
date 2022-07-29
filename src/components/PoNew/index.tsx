@@ -26,7 +26,6 @@ type CreatePoNewFormData = {
 }
 
 export type PoNewProps = {
-  part_number: string
   handleStart: (formData: CreatePoNewFormData) => void
 }
 
@@ -89,10 +88,9 @@ export default function PoNew({ handleStart }: PoNewProps) {
                 label="Código"
                 error={errors.part_number}
                 {...register('part_number')}
-                placeholder="Ex: VIXMOT0011"
               />
               <Input
-                label="Quatidade"
+                label="Quantidade"
                 error={errors.qty}
                 {...register('qty')}
               />
