@@ -6,62 +6,60 @@ const Chart = dynamic(() => import('react-apexcharts'), {
   ssr: false
 })
 
-const options: ApexOptions = {
-  chart: {
-    toolbar: {
-      show: false
-    },
-    zoom: {
-      enabled: false
-    },
-    foreColor: theme.colors.gray[500]
-  },
-
-  //coloca linhas de grade
-  grid: {
-    show: false
-  },
-
-  //adiciona os dados no grafico
-  dataLabels: {
-    enabled: false
-  },
-
-  //caixa de dialogo
-  tooltip: {
-    enabled: false
-  },
-  xaxis: {
-    type: 'datetime',
-    axisBorder: {
-      color: theme.colors.gray[600]
-    },
-    axisTicks: {
-      color: theme.colors.gray[600]
-    },
-    categories: [
-      '2022-06-06T00:00:00.000Z',
-      '2022-06-07T00:00:00.000Z',
-      '2022-06-08T00:00:00.000Z',
-      '2022-06-09T00:00:00.000Z',
-      '2022-06-10T00:00:00.000Z',
-      '2022-06-11T00:00:00.000Z',
-      '2022-06-12T00:00:00.000Z'
-    ]
-  },
-  fill: {
-    opacity: 0.3,
-    type: 'gradient',
-    gradient: {
-      shade: 'dark',
-      opacityTo: 0.3
-    }
-  }
+export type DashboardProps = {
+  data: any[]
+  category: string
+  measure: string
 }
 
-const series = [{ name: 'series1', data: [31, 120, 30, 28, 61, 18, 109] }]
+export default function Dashboard({ data, category, measure }: DashboardProps) {
+  const options: ApexOptions = {
+    chart: {
+      toolbar: {
+        show: false
+      },
+      zoom: {
+        enabled: false
+      },
+      foreColor: theme.colors.gray[500]
+    },
 
-export default function Dashboard() {
+    //coloca linhas de grade
+    grid: {
+      show: false
+    },
+
+    //adiciona os dados no grafico
+    dataLabels: {
+      enabled: false
+    },
+
+    //caixa de dialogo
+    tooltip: {
+      enabled: false
+    },
+    xaxis: {
+      type: 'category',
+      axisBorder: {
+        color: theme.colors.gray[600]
+      },
+      axisTicks: {
+        color: theme.colors.gray[600]
+      },
+      categories: data.map((item) => item[category])
+    },
+    fill: {
+      opacity: 0.3,
+      type: 'gradient',
+      gradient: {
+        shade: 'dark',
+        opacityTo: 0.3
+      }
+    }
+  }
+
+  const series = [{ name: 'series1', data: data.map((item) => item[measure]) }]
+
   return (
     <Flex direction="column" h="100vh">
       <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
@@ -74,17 +72,6 @@ export default function Dashboard() {
           <Box p={['6', '8']} bg="gray.800" borderRadius={8} pb="4">
             <Text fontSize="lg" mb="4">
               Produtividade
-            </Text>
-            <Chart
-              options={options}
-              series={series}
-              type="area"
-              height={160}
-            ></Chart>
-          </Box>
-          <Box p={['6', '8']} bg="gray.800" borderRadius={8} pb="4">
-            <Text fontSize="lg" mb="4">
-              Downtime
             </Text>
             <Chart
               options={options}
