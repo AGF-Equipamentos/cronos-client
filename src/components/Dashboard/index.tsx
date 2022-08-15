@@ -10,9 +10,15 @@ export type DashboardProps = {
   data: any[]
   category: string
   measure: string
+  measureTitle: string
 }
 
-export default function Dashboard({ data, category, measure }: DashboardProps) {
+export default function Dashboard({
+  data,
+  category,
+  measure,
+  measureTitle
+}: DashboardProps) {
   const options: ApexOptions = {
     chart: {
       toolbar: {
@@ -29,15 +35,18 @@ export default function Dashboard({ data, category, measure }: DashboardProps) {
       show: false
     },
 
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: '30%'
+      }
+    },
+
     //adiciona os dados no grafico
     dataLabels: {
       enabled: false
     },
 
-    //caixa de dialogo
-    tooltip: {
-      enabled: false
-    },
     xaxis: {
       type: 'category',
       axisBorder: {
@@ -48,17 +57,27 @@ export default function Dashboard({ data, category, measure }: DashboardProps) {
       },
       categories: data.map((item) => item[category])
     },
-    fill: {
-      opacity: 0.3,
-      type: 'gradient',
-      gradient: {
-        shade: 'dark',
-        opacityTo: 0.3
+    yaxis: {
+      title: {
+        text: measureTitle
       }
+    },
+    tooltip: {
+      theme: 'dark',
+      y: {
+        formatter: function (val) {
+          return val + '%'
+        }
+      }
+    },
+    fill: {
+      opacity: 0.6
     }
   }
 
-  const series = [{ name: 'series1', data: data.map((item) => item[measure]) }]
+  const series = [
+    { name: measureTitle, data: data.map((item) => item[measure]) }
+  ]
 
   return (
     <Flex direction="column" h="100vh">
@@ -71,12 +90,12 @@ export default function Dashboard({ data, category, measure }: DashboardProps) {
         >
           <Box p={['6', '8']} bg="gray.800" borderRadius={8} pb="4">
             <Text fontSize="lg" mb="4">
-              Produtividade
+              {measureTitle}
             </Text>
             <Chart
               options={options}
               series={series}
-              type="area"
+              type="bar"
               height={160}
             ></Chart>
           </Box>

@@ -7,5 +7,5 @@ export default {
 } as Meta
 
 export const Default: Story<HeaderProps> = () => (
-  <Header name="Ronaldo" department="Usinagem" />
+  <Header name="Ronaldo Rodrigues" department="Usinagem" />
 )

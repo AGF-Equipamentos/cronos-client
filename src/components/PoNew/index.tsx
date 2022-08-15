@@ -17,7 +17,7 @@ import { useRouter } from 'next/router'
 import { FiX, FiPlay } from 'react-icons/fi'
 import { Dropdown } from 'components/Dropdown'
 
-type CreatePoNewFormData = {
+export type CreatePoNewFormData = {
   part_number: string
   qty: number
   department: string

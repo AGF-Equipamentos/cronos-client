@@ -1,17 +1,14 @@
-import { Heading } from '@chakra-ui/react'
+import Header from 'components/Header'
 
-export type HomeProps = {
-  characters?: Pick<Character, 'name' | 'image'>[]
+export type HeaderProps = {
+  name: string
+  department: string
 }
 
-const Home = ({ characters }: HomeProps) => (
+const Home = () => (
   <div>
-    <Heading>Cronos</Heading>
-
     <div>
-      {characters?.map(({ name, image }) => (
-        <Headers />
-      ))}
+      <Header name="Ronaldo" department="Usinagem" />
     </div>
   </div>
 )

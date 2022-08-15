@@ -12,5 +12,6 @@ export const Default: Story<DashboardProps> = (args) => <Dashboard {...args} />
 Default.args = {
   data: efficiencyMock,
   category: 'day',
-  measure: 'efficiency'
+  measure: 'efficiency',
+  measureTitle: 'Eficiencia'
 }

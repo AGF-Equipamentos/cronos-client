@@ -27,7 +27,7 @@ export type PoTableProps = {
   handleStart: (process_id: string) => void
 }
 
-type PO = {
+export type PO = {
   process_id: string
   part_number: string
   quantity: number
@@ -49,10 +49,6 @@ const PoTable = ({ data, handleStart }: PoTableProps) => {
 
   return (
     <Box bg="gray.800" p="6">
-      <Heading size="lg" fontWeight="normal">
-        Geral
-      </Heading>
-
       <AlertDialog
         isOpen={isStartOpen}
         leastDestructiveRef={cancelStartRef}
