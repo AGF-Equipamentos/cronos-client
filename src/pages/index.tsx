@@ -1,11 +1,5 @@
-import Home from 'templates/Home'
+import Login, { LoginProps } from 'templates/Login'
 
-export default function Index() {
-  return <Home />
-}
-
-export const getStaticProps = async () => {
-  return {
-    props: {}
-  }
+export default function LoginPage({ handleLogin }: LoginProps) {
+  return <Login handleLogin={handleLogin} />
 }

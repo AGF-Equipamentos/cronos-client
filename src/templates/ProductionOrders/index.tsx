@@ -1,6 +1,6 @@
 import Base from 'templates/Base'
-import PoTable, { PO } from 'components/PoTable'
 import PoCard from 'components/PoCard'
+import PoTable, { PO } from 'components/PoTable'
 import { HStack, Button, Icon, Heading } from '@chakra-ui/react'
 import { FiPlus } from 'react-icons/fi'
 
@@ -19,20 +19,26 @@ export type PoCard = {
 
 export default function ProductionOrders({ productionOrders }: PoTableProps) {
   const handleStart = () => {}
+  const handlePause = () => {}
+  const handleFinish = () => {}
 
   return (
     <Base name="Ronaldo" department="Usinagem">
       <PoCard
+        process_id="001"
         part_number="VIXMOT0011"
         process="Usinagem"
         description="MOTOR ELETRICO TRIFASICO IP-55 75CV 8P"
         qty={25}
+        handlePause={handlePause}
+        handleFinish={handleFinish}
       />
-      <HStack p={6} justify="space-between">
+      <HStack p={6} mt={6} justify="space-between">
         <Heading size="lg" fontWeight="normal">
           Geral
         </Heading>
         <Button
+          //onClick="/ponew"
           colorScheme="yellow"
           size="sm"
           fontSize="sm"

@@ -1,13 +1,15 @@
-import NewProductionOrders from 'templates/NewPo'
+import NewProductionOrders, { PoNewProps } from 'templates/NewPo'
 
-export default function productionordensNewPage({
-  productionOrdersNew
+export default function newproductionordensPage({
+  newproductionOrders
 }: PoNewProps) {
-  return <NewProductionOrders newproductionOrders={productionOrdersNew} />
+  return <NewProductionOrders newproductionOrders={newproductionOrders} />
 }
 
 export const getStaticProps = async () => {
   return {
-    props: {}
+    props: {
+      //efficienDataByDay: getEfficiency(po_times)
+    }
   }
 }

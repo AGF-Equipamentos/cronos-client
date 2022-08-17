@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Flex, Image } from '@chakra-ui/react'
 import Header from 'components/Header'
 import Sidebar from 'components/Sidebar'
 import sidebarMock from 'components/Sidebar/mock'

@@ -1,4 +1,5 @@
 import { Avatar, Box, Flex, Text } from '@chakra-ui/react'
+import Logo from 'components/Logo'
 
 export type HeaderProps = {
   name: string
@@ -23,7 +24,7 @@ const Header = ({ name, department }: HeaderProps) => {
         letterSpacing="tight"
         w="64"
       >
-        Cronos
+        <Logo />
       </Text>
 
       <Flex align="center" ml="auto">

@@ -1,17 +1,17 @@
 import Base from 'templates/Base'
+import PoNew, { CreatePoNewFormData } from 'components/PoNew'
 
-export type PoNewPrpps = {
-  part_number: string
-  qty: number
-  department: string
-  workstation: string
-  process: string
+export type PoNewProps = {
+  newproductionOrders: CreatePoNewFormData[]
 }
 
-export default function NewProductionOrders({ productionOrders }: PoNewProps) {
+export default function NewProductionOrders({
+  newproductionOrders
+}: PoNewProps) {
+  const handleStart = () => {}
   return (
     <Base name="Ronaldo" department="Usinagem">
-      <PoNew />
+      <PoNew handleStart={handleStart} />
     </Base>
   )
 }
