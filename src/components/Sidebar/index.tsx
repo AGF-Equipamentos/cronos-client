@@ -23,7 +23,12 @@ const Sidebar = ({ menuItems }: SidebarProps) => {
         {menuItems.map((menuItem) => (
           <NavSection title={menuItem.section} key={menuItem.section}>
             {menuItem.menus.map((menu) => (
-              <NavLink key={menu.link} icon={menu.icon} href={menu.link}>
+              <NavLink
+                _houver={{ color: 'yellow.400' }}
+                key={menu.link}
+                icon={menu.icon}
+                href={menu.link}
+              >
                 {menu.title}
               </NavLink>
             ))}

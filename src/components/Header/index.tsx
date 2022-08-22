@@ -18,14 +18,13 @@ const Header = ({ name, department }: HeaderProps) => {
       px="6"
       align="center"
     >
+      <Logo />
       <Text
         fontSize={['2xl', '3xl']}
         fontWeight="bold"
         letterSpacing="tight"
         w="64"
-      >
-        <Logo />
-      </Text>
+      ></Text>
 
       <Flex align="center" ml="auto">
         <Flex align="center">

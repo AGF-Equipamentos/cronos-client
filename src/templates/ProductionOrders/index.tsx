@@ -38,7 +38,6 @@ export default function ProductionOrders({ productionOrders }: PoTableProps) {
           Geral
         </Heading>
         <Button
-          //onClick="/ponew"
           colorScheme="yellow"
           size="sm"
           fontSize="sm"
