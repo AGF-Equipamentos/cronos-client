@@ -1,22 +1,40 @@
 import { Stack } from '@chakra-ui/react'
-import { FiClipboard, FiFilePlus, FiPieChart } from 'react-icons/fi'
 import { NavLink } from './NavLink'
 import { NavSection } from './NavSection'
+import { IconType } from 'react-icons/lib'
 
-export function SidebarNav() {
+export type SidebarProps = {
+  menuItems: MenuItem[]
+}
+
+export type MenuItem = {
+  section: string
+  menus: {
+    title: string
+    link: string
+    icon: IconType
+  }[]
+}
+
+const SidebarNav = ({ menuItems }: SidebarProps) => {
   return (
     <Stack spacing="12" align="flex-start">
-      <NavSection title="GERAL">
-        <NavLink icon={FiPieChart} href="/efficiencydash">
-          Dashboard
-        </NavLink>
-        <NavLink icon={FiClipboard} href="/productionorders">
-          Ordem de Produção
-        </NavLink>
-        <NavLink icon={FiFilePlus} href="/ponew">
-          Nova OP
-        </NavLink>
-      </NavSection>
+      {menuItems.map((menuItem) => (
+        <NavSection title={menuItem.section} key={menuItem.section}>
+          {menuItem.menus.map((menu) => (
+            <NavLink
+              _hover={{ color: 'yellow.400' }}
+              key={menu.link}
+              icon={menu.icon}
+              href={menu.link}
+            >
+              {menu.title}
+            </NavLink>
+          ))}
+        </NavSection>
+      ))}
     </Stack>
   )
 }
+
+export default SidebarNav

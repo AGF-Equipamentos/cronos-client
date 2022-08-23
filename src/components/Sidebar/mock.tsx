@@ -10,13 +10,18 @@ const sidebarMock = [
     section: 'GERAL',
     menus: [
       {
-        title: 'Pedidos',
-        link: '/orders',
+        title: 'Dashboard',
+        link: '/efficiencydash',
         icon: RiDashboardLine
       },
       {
-        title: 'Usuários',
-        link: '/users',
+        title: 'Ordens Produção',
+        link: '/productionorders',
+        icon: RiContactsLine
+      },
+      {
+        title: 'Nova OP',
+        link: '/ponew',
         icon: RiContactsLine
       }
     ]

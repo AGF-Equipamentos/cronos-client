@@ -5,11 +5,14 @@ import { theme } from 'styles/theme'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
+import { SidebarDrawerProvider } from 'contexts/SidebarDrawerContext'
 
 function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
+      <SidebarDrawerProvider>
+        <Component {...pageProps} />
+      </SidebarDrawerProvider>
     </ChakraProvider>
   )
 }

@@ -7,8 +7,10 @@ export default function efficiencyPage({
   return <EfficiencyDash efficiencydash={efficiencydash} />
 }
 
-export const getStationProps = async () => {
+export const getStaticProps = async () => {
   return {
-    dashefficiency: dashefficiency
+    props: {
+      efficiencydash: dashefficiency
+    }
   }
 }

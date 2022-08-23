@@ -1,6 +1,7 @@
 import { Box, Flex } from '@chakra-ui/react'
 import Header from 'components/Header'
-import { SidebarNav } from 'components/Sidebar/SidebarNav'
+import Sidebar from 'components/Sidebar'
+import sidebarMock from 'components/Sidebar/mock'
 
 export type BaseProps = {
   children: React.ReactNode
@@ -13,8 +14,7 @@ const Base = ({ children, name, department }: BaseProps) => (
     <Header name={name} department={department} />
 
     <Flex w="100%" my="8" maxWidth={1480} mx="auto" px="6">
-      <SidebarNav />
-
+      <Sidebar menuItems={sidebarMock} />
       <Box flex="1" bg="gray.800" p={['6', '8']} borderRadius={8}>
         {children}
       </Box>

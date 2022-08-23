@@ -1,5 +1,15 @@
-import { Avatar, Box, Flex, Text } from '@chakra-ui/react'
+import {
+  Avatar,
+  Box,
+  Flex,
+  Icon,
+  IconButton,
+  Text,
+  useBreakpointValue
+} from '@chakra-ui/react'
 import Logo from 'components/Logo'
+import { useSidebarDrawer } from 'contexts/SidebarDrawerContext'
+import { RiMenuLine } from 'react-icons/ri'
 
 export type HeaderProps = {
   name: string
@@ -7,6 +17,13 @@ export type HeaderProps = {
 }
 
 const Header = ({ name, department }: HeaderProps) => {
+  const { onOpen } = useSidebarDrawer()
+
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    '2xl': true
+  })
+
   return (
     <Flex
       as="header"
@@ -18,7 +35,19 @@ const Header = ({ name, department }: HeaderProps) => {
       px="6"
       align="center"
     >
+      {!isWideVersion && (
+        <IconButton
+          aria-label="Open navigation"
+          icon={<Icon as={RiMenuLine} />}
+          fontSize="24"
+          variant="unstyled"
+          onClick={onOpen}
+          mr="2"
+        ></IconButton>
+      )}
+
       <Logo />
+
       <Text
         fontSize={['2xl', '3xl']}
         fontWeight="bold"
