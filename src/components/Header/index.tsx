@@ -4,19 +4,24 @@ import {
   Flex,
   Icon,
   IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Text,
   useBreakpointValue
 } from '@chakra-ui/react'
 import Logo from 'components/Logo'
 import { useSidebarDrawer } from 'contexts/SidebarDrawerContext'
-import { RiMenuLine } from 'react-icons/ri'
+import { RiMenuLine, RiShutDownLine } from 'react-icons/ri'
 
 export type HeaderProps = {
   name: string
   department: string
+  handleLogout: () => true
 }
 
-const Header = ({ name, department }: HeaderProps) => {
+const Header = ({ name, department, handleLogout }: HeaderProps) => {
   const { onOpen } = useSidebarDrawer()
 
   const isWideVersion = useBreakpointValue({
@@ -64,7 +69,21 @@ const Header = ({ name, department }: HeaderProps) => {
             </Text>
           </Box>
 
-          <Avatar size="md" name={name} src="" />
+          <Menu placement="bottom-end">
+            <MenuButton>
+              <Avatar size="md" name={name} src="" />
+            </MenuButton>
+            <MenuList bg="gray.700" borderColor="gray.600">
+              <MenuItem
+                icon={<RiShutDownLine />}
+                _focus={{ background: 'gray.700', color: 'red.300' }}
+                _active={{ background: 'gray.700', color: 'red.500' }}
+                onClick={handleLogout}
+              >
+                Logout
+              </MenuItem>
+            </MenuList>
+          </Menu>
         </Flex>
       </Flex>
     </Flex>

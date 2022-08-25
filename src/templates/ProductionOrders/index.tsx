@@ -3,6 +3,7 @@ import PoCard from 'components/PoCard'
 import PoTable, { PO } from 'components/PoTable'
 import { HStack, Button, Icon, Heading } from '@chakra-ui/react'
 import { FiPlus } from 'react-icons/fi'
+import Link from 'next/link'
 
 export type PoTableProps = {
   productionOrders: PO[]
@@ -37,14 +38,17 @@ export default function ProductionOrders({ productionOrders }: PoTableProps) {
         <Heading size="lg" fontWeight="normal">
           Geral
         </Heading>
-        <Button
-          colorScheme="yellow"
-          size="sm"
-          fontSize="sm"
-          leftIcon={<Icon as={FiPlus} fontSize="16" />}
-        >
-          Novo
-        </Button>
+        <Link href="/ponew" passHref>
+          <Button
+            as="a"
+            colorScheme="yellow"
+            size="sm"
+            fontSize="sm"
+            leftIcon={<Icon as={FiPlus} fontSize="16" />}
+          >
+            Novo
+          </Button>
+        </Link>
       </HStack>
       <PoTable data={productionOrders} handleStart={handleStart} />
     </Base>

@@ -3,6 +3,7 @@ import { Input } from 'components/Input'
 import * as yup from 'yup'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import Link from 'next/link'
 
 type LoginProps = {
   handleLogin: (value: unknown) => void
@@ -48,15 +49,17 @@ const LoginCronos: React.FC<LoginProps> = ({ handleLogin }) => {
           <Input label="Registro" type="registro" {...register('registro')} />
 
           <Flex justify="center">
-            <Button
-              colorScheme="yellow"
-              size="lg"
-              w="296px"
-              isLoading={formState.isSubmitting}
-              onClick={handleSubmit(SingIn)}
-            >
-              Entrar
-            </Button>
+            <Link href="/efficiencydash">
+              <Button
+                colorScheme="yellow"
+                size="lg"
+                w="296px"
+                isLoading={formState.isSubmitting}
+                onClick={handleSubmit(SingIn)}
+              >
+                Entrar
+              </Button>
+            </Link>
           </Flex>
         </Stack>
       </Flex>

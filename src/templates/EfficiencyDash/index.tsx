@@ -1,6 +1,5 @@
 import Base from 'templates/Base'
 import Dashboard, { DashboardProps } from 'components/Dashboard'
-import efficiencyMock from 'components/Dashboard/mock'
 
 export type EfficiencyDashProps = {
   efficiencydash: DashboardProps[]
