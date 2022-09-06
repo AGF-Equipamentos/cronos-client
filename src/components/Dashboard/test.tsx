@@ -6,7 +6,6 @@ import Dashboard from '.'
 describe('<Dashboard />', () => {
   it('should render the heading', () => {
     const filterEfficiency = Dashboard(efficiencyMock, 'day')
-
     expect(filterEfficiency).toStrictEqual([
       {
         day: 1,
@@ -75,67 +74,33 @@ describe('<Dashboard />', () => {
 describe('<Dashboard />', () => {
   it('should render the heading', () => {
     const filterEfficiency = Dashboard(efficiencyMock, 'week')
-
     expect(filterEfficiency).toStrictEqual([
       {
+        week: 14,
+        dtt_in_minutes: 27
+      },
+      {
+        week: 18,
+        dtt_in_minutes: 32
+      },
+      {
+        week: 23,
+        dtt_in_minutes: 53
+      },
+      {
+        //week: 20+15+10+20+30+40
         week: 31,
-        efficiency: 20
+        efficiency: 135
       },
       {
-        week: 31,
-        efficiency: 15
-      },
-      {
-        week: 31,
-        efficiency: 10
-      },
-      {
-        week: 31,
-        efficiency: 20
-      },
-      {
-        week: 31,
-        efficiency: 30
-      },
-      {
-        week: 31,
-        efficiency: 40
-      },
-      {
+        //week: 10+20+30+10+20+30+40
         week: 32,
-        efficiency: 10
+        efficiency: 160
       },
       {
-        week: 32,
-        efficiency: 20
-      },
-      {
-        week: 32,
-        efficiency: 30
-      },
-      {
-        week: 32,
-        efficiency: 10
-      },
-      {
-        week: 32,
-        efficiency: 20
-      },
-      {
-        week: 32,
-        efficiency: 30
-      },
-      {
-        week: 32,
-        efficiency: 40
-      },
-      {
+        //week: 40 + 50
         week: 33,
-        efficiency: 40
-      },
-      {
-        week: 33,
-        efficiency: 50
+        efficiency: 90
       }
     ])
   })
@@ -144,67 +109,31 @@ describe('<Dashboard />', () => {
 describe('<Dashboard />', () => {
   it('should render the heading', () => {
     const filterEfficiency = Dashboard(efficiencyMock, 'month')
-
     expect(filterEfficiency).toStrictEqual([
       {
-        month: 8,
-        efficiency: 20
+        month: 4,
+        dtt_in_minutes: 27
       },
       {
-        month: 8,
-        efficiency: 15
+        month: 5,
+        dtt_in_minutes: 32
       },
       {
-        month: 8,
-        efficiency: 10
+        month: 6,
+        dtt_in_minutes: 53
       },
       {
+        //month: 20+15+10+20+30+40+10+20+30+10+20+30+40+40+50
         month: 8,
-        efficiency: 20
+        efficiency: 385
       },
       {
-        month: 8,
-        efficiency: 30
+        month: 9,
+        efficiency: 100
       },
       {
-        month: 8,
-        efficiency: 40
-      },
-      {
-        month: 8,
-        efficiency: 10
-      },
-      {
-        month: 8,
-        efficiency: 20
-      },
-      {
-        month: 8,
-        efficiency: 30
-      },
-      {
-        month: 8,
-        efficiency: 10
-      },
-      {
-        month: 8,
-        efficiency: 20
-      },
-      {
-        month: 8,
-        efficiency: 30
-      },
-      {
-        month: 8,
-        efficiency: 40
-      },
-      {
-        month: 8,
-        efficiency: 40
-      },
-      {
-        month: 8,
-        efficiency: 50
+        month: 10,
+        efficiency: 90
       }
     ])
   })

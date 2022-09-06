@@ -14,7 +14,13 @@ export default function EfficiencyDash({
         data={efficiencydash}
         category="day"
         measure="efficiency"
-        measureTitle="Produtividade"
+        measureTitle="Produtividade Diaria"
+      />
+      <Dashboard
+        data={efficiencydash}
+        category="week"
+        measure="efficiency"
+        measureTitle="Produtividade Mensal"
       />
     </Base>
   )

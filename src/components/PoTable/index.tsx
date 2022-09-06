@@ -1,6 +1,5 @@
 import {
   Box,
-  Heading,
   Table,
   Tbody,
   Td,
