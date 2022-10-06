@@ -1,5 +1,8 @@
 import Base from 'templates/Base'
 import Dashboard, { DashboardProps } from 'components/Dashboard'
+import efficiencyMockDay from 'components/Dashboard/mockDay'
+import efficiencyMockMonth from 'components/Dashboard/mockMonth'
+import efficiencyMockWeek from 'components/Dashboard/mockWeek'
 
 export type EfficiencyDashProps = {
   efficiencydash: DashboardProps[]
@@ -11,14 +14,20 @@ export default function EfficiencyDash({
   return (
     <Base name="Ronaldo" department="Usinagem">
       <Dashboard
-        data={efficiencydash}
+        data={efficiencyMockDay}
         category="day"
         measure="efficiency"
         measureTitle="Produtividade Diaria"
       />
       <Dashboard
-        data={efficiencydash}
+        data={efficiencyMockWeek}
         category="week"
+        measure="efficiency"
+        measureTitle="Produtividade Semanal"
+      />
+      <Dashboard
+        data={efficiencyMockMonth}
+        category="month"
         measure="efficiency"
         measureTitle="Produtividade Mensal"
       />

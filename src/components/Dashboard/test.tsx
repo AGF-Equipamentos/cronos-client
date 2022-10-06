@@ -1,11 +1,12 @@
-const { efficiencyMock } = require('../Dashboard/mock')
+import efficiencyMockDay from './mockDay'
+import efficiencyMockWeek from './mockWeek'
+import efficiencyMockMonth from './mockMonth'
 import { screen } from '@testing-library/react'
-
 import Dashboard from '.'
 
 describe('<Dashboard />', () => {
   it('should render the heading', () => {
-    const filterEfficiency = Dashboard(efficiencyMock, 'day')
+    const filterEfficiency = Dashboard(efficiencyMockDay, 'day')
     expect(filterEfficiency).toStrictEqual([
       {
         day: 1,
@@ -73,20 +74,8 @@ describe('<Dashboard />', () => {
 
 describe('<Dashboard />', () => {
   it('should render the heading', () => {
-    const filterEfficiency = Dashboard(efficiencyMock, 'week')
+    const filterEfficiency = Dashboard(efficiencyMockWeek, 'week')
     expect(filterEfficiency).toStrictEqual([
-      {
-        week: 14,
-        dtt_in_minutes: 27
-      },
-      {
-        week: 18,
-        dtt_in_minutes: 32
-      },
-      {
-        week: 23,
-        dtt_in_minutes: 53
-      },
       {
         //week: 20+15+10+20+30+40
         week: 31,
@@ -108,32 +97,12 @@ describe('<Dashboard />', () => {
 
 describe('<Dashboard />', () => {
   it('should render the heading', () => {
-    const filterEfficiency = Dashboard(efficiencyMock, 'month')
+    const filterEfficiency = Dashboard(efficiencyMockMonth, 'month')
     expect(filterEfficiency).toStrictEqual([
-      {
-        month: 4,
-        dtt_in_minutes: 27
-      },
-      {
-        month: 5,
-        dtt_in_minutes: 32
-      },
-      {
-        month: 6,
-        dtt_in_minutes: 53
-      },
       {
         //month: 20+15+10+20+30+40+10+20+30+10+20+30+40+40+50
         month: 8,
         efficiency: 385
-      },
-      {
-        month: 9,
-        efficiency: 100
-      },
-      {
-        month: 10,
-        efficiency: 90
       }
     ])
   })

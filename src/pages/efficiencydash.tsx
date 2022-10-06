@@ -1,4 +1,4 @@
-import dashefficiency from 'components/Dashboard/mock'
+import dashefficiencyday from 'components/Dashboard/mockDay'
 import EfficiencyDash, { EfficiencyDashProps } from 'templates/EfficiencyDash'
 
 export default function efficiencyPage({
@@ -10,7 +10,7 @@ export default function efficiencyPage({
 export const getStaticProps = async () => {
   return {
     props: {
-      efficiencydash: dashefficiency
+      efficiencydash: dashefficiencyday
     }
   }
 }

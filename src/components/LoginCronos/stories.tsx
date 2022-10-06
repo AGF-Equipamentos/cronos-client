@@ -1,4 +1,5 @@
 import { Story, Meta } from '@storybook/react/types-6-0'
+import LoginCronos from '.'
 import Login from '.'
 
 export default {
@@ -6,6 +7,4 @@ export default {
   component: Login
 } as Meta
 
-const handleLogin = () => {}
-
-export const Default: Story = () => <Login handleLogin={handleLogin} />
+export const Default: Story = () => <LoginCronos />

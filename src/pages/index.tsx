@@ -1,5 +1,5 @@
-import Login, { LoginProps } from 'templates/Login'
+import Login from 'templates/Login'
 
-export default function LoginPage({ handleLogin }: LoginProps) {
-  return <Login handleLogin={handleLogin} />
+export default function LoginPage() {
+  return <Login />
 }

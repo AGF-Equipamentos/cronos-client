@@ -3,29 +3,27 @@ import { Input } from 'components/Input'
 import * as yup from 'yup'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import Link from 'next/link'
-
-type LoginProps = {
-  handleLogin: (value: unknown) => void
-}
+import { useAuth } from 'contexts/AuthContext'
 
 export type LoginFormData = {
-  nome: string
-  registro: string
+  username: string
+  password: string
 }
 
 const schema = yup.object().shape({
-  nome: yup.string().required('Nome obrigatório'),
-  registro: yup.number().required('Registro obrigatório')
+  username: yup.string().required('Nome obrigatório'),
+  password: yup.number().required('Senha obrigatório')
 })
 
-const LoginCronos: React.FC<LoginProps> = ({ handleLogin }) => {
+const LoginCronos = () => {
   const { register, handleSubmit, formState } = useForm<LoginFormData>({
     resolver: yupResolver(schema)
   })
 
-  const SingIn: SubmitHandler<LoginFormData> = async (value) => {
-    handleLogin(value)
+  const { signIn } = useAuth()
+
+  const handleLogin: SubmitHandler<LoginFormData> = async (value) => {
+    signIn(value)
   }
 
   return (
@@ -45,21 +43,19 @@ const LoginCronos: React.FC<LoginProps> = ({ handleLogin }) => {
             <Image src="/img/Logo_2.png" />
           </Flex>
 
-          <Input label="Nome" {...register('nome')} />
-          <Input label="Registro" type="registro" {...register('registro')} />
+          <Input label="Nome" {...register('username')} />
+          <Input label="Password" type="password" {...register('password')} />
 
           <Flex justify="center">
-            <Link href="/efficiencydash">
-              <Button
-                colorScheme="yellow"
-                size="lg"
-                w="296px"
-                isLoading={formState.isSubmitting}
-                onClick={handleSubmit(SingIn)}
-              >
-                Entrar
-              </Button>
-            </Link>
+            <Button
+              colorScheme="yellow"
+              size="lg"
+              w="296px"
+              isLoading={formState.isSubmitting}
+              onClick={handleSubmit(handleLogin)}
+            >
+              Entrar
+            </Button>
           </Flex>
         </Stack>
       </Flex>

@@ -80,24 +80,23 @@ export default function Dashboard({
   ]
 
   return (
-    <Flex direction="column" h="100vh">
+    <Flex direction="column" /*h="100vh"*/>
       <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
         <SimpleGrid
-          flex="1"
+          w="100%"
+          maxWidth={{
+            base: 1480,
+            '2xl': 1032
+          }}
           gap="4"
           minChildWidth="320px"
           alignContent="flex-start"
         >
-          <Box p={['6', '8']} bg="gray.800" borderRadius={8} pb="4">
+          <Box p={['6', '8']} pb="4">
             <Text fontSize="lg" mb="4">
               {measureTitle}
             </Text>
-            <Chart
-              options={options}
-              series={series}
-              type="bar"
-              height={160}
-            ></Chart>
+            <Chart options={options} series={series} type="bar" height={160} />
           </Box>
         </SimpleGrid>
       </Flex>

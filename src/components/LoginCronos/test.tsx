@@ -1,23 +1,35 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { AuthContext, AuthContextData } from 'contexts/AuthContext'
+import LoginForm from '.'
 
-import Login from '.'
+describe('<LoginForm />', () => {
+  it('should be to login the "username", "password"', async () => {
+    const signIn = jest.fn()
 
-describe('<Login />', () => {
-  it('should be possible to "Enter" ', async () => {
-    const handleLogin = jest.fn()
-    render(<Login handleLogin={handleLogin} />)
-
-    const nomeInput = screen.getByLabelText('Nome')
-    fireEvent.change(nomeInput, {
-      target: { value: 'Ronaldo' }
+    render(
+      <AuthContext.Provider value={{ ...({} as AuthContextData), signIn }}>
+        <LoginForm />
+      </AuthContext.Provider>
+    )
+    //Input user
+    const userameInput = screen.getByLabelText('Usuário')
+    fireEvent.change(userameInput, {
+      target: { value: 'ronaldo' }
     })
 
-    const registroInput = screen.getByLabelText('Registro')
-    fireEvent.change(registroInput, { target: { value: '407' } })
+    //Input password
+    const passwordInput = screen.getByLabelText('Senha')
+    fireEvent.change(passwordInput, { target: { value: '123456' } })
 
+    // Button
     const button = screen.getByText('Entrar')
     fireEvent.click(button)
 
-    await waitFor(() => expect(handleLogin).toHaveBeenCalled())
+    await waitFor(() =>
+      expect(signIn).toHaveBeenCalledWith({
+        username: 'ronaldo',
+        password: '123456'
+      })
+    )
   })
 })
