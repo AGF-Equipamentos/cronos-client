@@ -3,6 +3,18 @@ const efficiencyMockWeek = [
   // 32 = 10+20+30+10+20+30+40
   // 33 = 40+50
   {
+    week: 28,
+    efficiency: 35
+  },
+  {
+    week: 29,
+    efficiency: 145
+  },
+  {
+    week: 30,
+    efficiency: 110
+  },
+  {
     week: 31,
     efficiency: 135
   },
@@ -13,6 +25,14 @@ const efficiencyMockWeek = [
   {
     week: 33,
     efficiency: 90
+  },
+  {
+    week: 34,
+    efficiency: 150
+  },
+  {
+    week: 35,
+    efficiency: 177
   }
 ]
 
