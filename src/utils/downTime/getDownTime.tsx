@@ -1,5 +1,11 @@
 import getWeek from 'date-fns/getWeek'
 
+type getDowntime = {
+  id: number
+  datetime_start: Date
+  datetime_end: Date
+}
+
 const getDownTime = (dt_times) => {
   const dt_timesDownTime = dt_times.map((dt_time) => ({
     ...dt_time,

@@ -1,14 +1,18 @@
 export type efficiencyAverage = {
-  times: string | any
-  byParam: any
+  times: string
+  byParam: string
 }
 
-type po_timeSum = {
-  acc: any
-  po_time: any
+type EfficienctAverageByParam = {
+  production_order: []
+  day: number
+  week: number
+  month: number
+  efficiency: number
+  rt_in_minutes: number
 }
 
-const getEfficienctAverageByParam = ({ times, byParam }: efficiencyAverage) => {
+const getEfficienctAverageByParam = (times, byParam: efficiencyAverage) => {
   const po_timeSumAndCount = times.reduce(({ acc, po_time }: po_timeSum) => {
     if (!acc[po_time[byParam]]) {
       acc[po_time[byParam]] = {

@@ -1,11 +1,15 @@
 import { efficiencyAverage } from 'utils/efficienctAverageByParam/getEfficienctAverageByParam'
 
 type dt_timesSum = {
-  acc: string
-  dt_time: string
+  datetime_start: Date
+  datetime_end: Date
+  day: number
+  week: number
+  month: number
+  dt_in_minutes: number
 }
 
-const getDownTimeTotalByParam = ({ times, byParam }: efficiencyAverage) => {
+const getDownTimeTotalByParam = (times, byParam: efficiencyAverage) => {
   const dt_timesSum = times.reduce((acc, dt_time) => {
     if (!acc[dt_time[byParam]]) {
       acc[dt_time[byParam]] = {
