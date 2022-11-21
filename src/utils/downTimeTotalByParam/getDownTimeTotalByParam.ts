@@ -1,6 +1,4 @@
-import { efficiencyAverage } from 'utils/efficienctAverageByParam/getEfficienctAverageByParam'
-
-type dt_timesSum = {
+type DownTime = {
   datetime_start: Date
   datetime_end: Date
   day: number
@@ -9,7 +7,16 @@ type dt_timesSum = {
   dt_in_minutes: number
 }
 
-const getDownTimeTotalByParam = (times, byParam: efficiencyAverage) => {
+type DownTimesSum = {
+  [byParamValue: string]: {
+    dtt_in_minutes: number
+  }
+}
+
+const getDownTimeTotalByParam = (
+  times: DownTime[],
+  byParam: 'day' | 'week' | 'month'
+) => {
   const dt_timesSum = times.reduce((acc, dt_time) => {
     if (!acc[dt_time[byParam]]) {
       acc[dt_time[byParam]] = {
@@ -20,7 +27,7 @@ const getDownTimeTotalByParam = (times, byParam: efficiencyAverage) => {
     acc[dt_time[byParam]].dtt_in_minutes =
       acc[dt_time[byParam]].dtt_in_minutes + dt_time.dt_in_minutes
     return acc
-  }, {})
+  }, {} as DownTimesSum)
 
   const dt_timeAvg = Object.keys(dt_timesSum).map((param) => {
     const item = dt_timesSum[param]

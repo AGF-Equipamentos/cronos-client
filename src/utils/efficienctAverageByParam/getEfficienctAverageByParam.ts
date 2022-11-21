@@ -1,10 +1,7 @@
-export type efficiencyAverage = {
-  times: string
-  byParam: string
-}
-
 type EfficienctAverageByParam = {
-  production_order: []
+  production_order: {
+    qty: number
+  }
   day: number
   week: number
   month: number
@@ -12,8 +9,19 @@ type EfficienctAverageByParam = {
   rt_in_minutes: number
 }
 
-const getEfficienctAverageByParam = (times, byParam: efficiencyAverage) => {
-  const po_timeSumAndCount = times.reduce(({ acc, po_time }: po_timeSum) => {
+type AverageSum = {
+  [byParamValue: string]: {
+    efficiency: number
+    count: number
+    rtt_in_minutes: number
+  }
+}
+
+const getEfficienctAverageByParam = (
+  times: EfficienctAverageByParam[],
+  byParam: 'day' | 'week' | 'month'
+) => {
+  const po_timeSumAndCount = times.reduce((acc, po_time) => {
     if (!acc[po_time[byParam]]) {
       acc[po_time[byParam]] = {
         efficiency: po_time.efficiency * po_time.production_order.qty,
@@ -30,7 +38,7 @@ const getEfficienctAverageByParam = (times, byParam: efficiencyAverage) => {
     acc[po_time[byParam]].rtt_in_minutes =
       acc[po_time[byParam]].rtt_in_minutes + po_time.rt_in_minutes
     return acc
-  }, {})
+  }, {} as AverageSum)
 
   const po_timeAvg = Object.keys(po_timeSumAndCount).map((param) => {
     const item = po_timeSumAndCount[param]
