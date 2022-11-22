@@ -7,7 +7,8 @@ export default function productionordensPage({
   return <ProductionOrders productionOrders={productionOrders} />
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
+  // chamda no strapi GET production orders
   return {
     props: {
       productionOrders: posMock

@@ -31,15 +31,14 @@ const getEfficiency = (po_times: Efficiency[]) => {
       (1000 * 60),
     efficiency:
       po_time.standart_time.time_in_minutes /
-      (Number(new Date(po_time.datetime_end)) -
-        Number(new Date(po_time.datetime_start)) /
-          (1000 * 60) /
-          po_time.production_order.qty),
+      ((Number(new Date(po_time.datetime_end)) -
+        Number(new Date(po_time.datetime_start))) /
+        (1000 * 60) /
+        po_time.production_order.qty),
     day: new Date(po_time.datetime_end).getDate(),
     week: getWeek(new Date(po_time.datetime_end)),
     month: new Date(po_time.datetime_end).getMonth() + 1
   }))
-
   return po_timesEfficiency
 }
 

@@ -13,9 +13,10 @@ import * as yup from 'yup'
 import { Input } from '../Input'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
+import Router from 'next/router'
 import { FiX, FiPlay } from 'react-icons/fi'
 import { Dropdown } from 'components/Dropdown'
+import { api } from 'services/api'
 
 export type CreatePoNewFormData = {
   part_number: string
@@ -25,9 +26,9 @@ export type CreatePoNewFormData = {
   process: string
 }
 
-export type PoNewProps = {
-  handleStart: (formData: CreatePoNewFormData) => void
-}
+// export type PoNewProps = {
+//   handleStart: (formData: CreatePoNewFormData) => void
+// }
 
 yup.setLocale({
   number: {
@@ -43,12 +44,12 @@ const createPoNewFormSchema = yup.object().shape({
     .integer()
     .required('Quantidade obrigatória')
     .typeError('Digite apenas números'),
-  department: yup.string().required('Escolha um departamento'),
-  workstation: yup.string().required('Escolha um posto de trabalho'),
-  process: yup.string().required('Escolha um processo')
+  department: yup.number().required('Escolha um departamento'),
+  workstation: yup.number().required('Escolha um posto de trabalho'),
+  process: yup.number().required('Escolha um processo')
 })
 
-export default function PoNew({ handleStart }: PoNewProps) {
+export default function PoNew() {
   const {
     register,
     handleSubmit,
@@ -60,10 +61,21 @@ export default function PoNew({ handleStart }: PoNewProps) {
   const handleCreatePoNew: SubmitHandler<CreatePoNewFormData> = async (
     values
   ) => {
-    handleStart(values)
+    const po = await api.post('po-times', {
+      data: {
+        datetime_start: new Date(),
+        users_permissions_user: 1,
+        process: values.process,
+        department: values.department,
+        workstation: values.workstation,
+        production_order: 2
+        //standart_time:
+      }
+    })
+    console.log(values)
+    console.log(po.data)
+    Router.push('productionorders')
   }
-
-  const router = useRouter()
 
   return (
     <Box as="form" onSubmit={handleSubmit(handleCreatePoNew)}>
@@ -90,24 +102,24 @@ export default function PoNew({ handleStart }: PoNewProps) {
             error={errors.department}
             items={[
               {
+                label: 'Calderaria',
+                value: 1
+              },
+              {
                 label: 'Pintura',
-                value: 'Pintura'
+                value: 2
               },
               {
                 label: 'Usinagem',
-                value: 'Usinagem'
+                value: 3
               },
               {
                 label: 'Furação',
-                value: 'Furação'
-              },
-              {
-                label: 'Fundição',
-                value: 'Fundição'
+                value: 4
               },
               {
                 label: 'Montagem',
-                value: 'Montagem'
+                value: 5
               }
             ]}
             {...register('department')}
@@ -119,23 +131,23 @@ export default function PoNew({ handleStart }: PoNewProps) {
             items={[
               {
                 label: 'Posto de trabalho 01',
-                value: 'Posto de trabalho 01'
+                value: 1
               },
               {
                 label: 'Posto de trabalho 02',
-                value: 'Posto de trabalho 02'
+                value: 2
               },
               {
                 label: 'Posto de trabalho 03',
-                value: 'Posto de trabalho 03'
+                value: 3
               },
               {
                 label: 'Posto de trabalho 04',
-                value: 'Posto de trabalho 04'
+                value: 4
               },
               {
                 label: 'Posto de trabalho 05',
-                value: 'Posto de trabalho 05'
+                value: 5
               }
             ]}
             {...register('workstation')}
@@ -151,23 +163,23 @@ export default function PoNew({ handleStart }: PoNewProps) {
               items={[
                 {
                   label: 'Pintura',
-                  value: 'Pintura'
+                  value: 1
                 },
                 {
                   label: 'Usinagem',
-                  value: 'Usinagem'
+                  value: 2
                 },
                 {
                   label: 'Furação',
-                  value: 'Furação'
+                  value: 3
                 },
                 {
                   label: 'Fundição',
-                  value: 'Fundição'
+                  value: 4
                 },
                 {
                   label: 'Montagem',
-                  value: 'Montagem'
+                  value: 5
                 }
               ]}
               {...register('process')}
@@ -191,6 +203,7 @@ export default function PoNew({ handleStart }: PoNewProps) {
             type="submit"
             leftIcon={<Icon as={FiPlay} fontSize="16" />}
             isLoading={isSubmitting}
+            onClick={handleSubmit(handleCreatePoNew)}
           >
             Iniciar
           </Button>

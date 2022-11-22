@@ -43,7 +43,7 @@ describe('getEfficiency', () => {
         day: 15,
         efficiency: 1.6,
         rtt_in_minutes: 22,
-        real_efficiency: 2.33
+        real_efficiency: 1.6
       }
     ])
   })

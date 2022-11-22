@@ -10,10 +10,6 @@ const downtimebyDayMock = [
   {
     day: 6,
     dtt_in_minutes: 2
-  },
-  {
-    day: 15,
-    dtt_in_minutes: 16
   }
 ]
 const downtimebyWeekMock = [
