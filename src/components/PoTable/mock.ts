@@ -1,5 +1,37 @@
 const posMock = [
   {
+    id: 100,
+    attributes: {
+      datetime_start: '2022-06-03T08:30:45.333Z',
+      datetime_end: '2022-06-03T13:30:25.425Z',
+      production_order: {
+        data: {
+          id: 100,
+          attributes: {
+            qty: 10,
+            process_detail: {
+              data: {
+                attributes: {
+                  part_number: 'VIXMOT0011',
+                  qty_machine: 5,
+                  description: 'MOTOR BH05P'
+                }
+              }
+            }
+          }
+        }
+      },
+      process: {
+        data: {
+          id: 100,
+          attributes: {
+            name: 'Furação'
+          }
+        }
+      }
+    }
+  },
+  {
     process_id: '001',
     part_number: '9900001374',
     quantity: 1,

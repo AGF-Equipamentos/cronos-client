@@ -27,13 +27,36 @@ export type PoTableProps = {
 }
 
 export type PO = {
-  process_id: string
-  part_number: string
-  quantity: number
-  description: string
-  process: string
-  begin: string
-  end: string
+  id: number
+  attributes: {
+    datetime_start: Date
+    datetime_end: Date
+    production_order: {
+      data: {
+        id: number
+        attributes: {
+          qty: number
+          process_detail: {
+            data: {
+              attributes: {
+                part_number: string
+                qty_machine: number
+                description: string
+              }
+            }
+          }
+        }
+      }
+    }
+    process: {
+      data: {
+        id: number
+        attributes: {
+          name: string
+        }
+      }
+    }
+  }
 }
 
 const PoTable = ({ data, handleStart }: PoTableProps) => {
@@ -100,19 +123,45 @@ const PoTable = ({ data, handleStart }: PoTableProps) => {
         </Thead>
         <Tbody>
           {data.slice(0, 6).map((po) => (
-            <Tr key={po.process_id}>
-              <Td>{po.part_number}</Td>
-              <Td>{po.quantity}</Td>
-              <Td>{po.description}</Td>
-              <Td>{po.process}</Td>
-              <Td>{format(new Date(po.begin), "dd/MM '-' HH:mm'h'")}</Td>
-              <Td>{format(new Date(po.end), "dd/MM '-' HH:mm'h'")}</Td>
+            <Tr key={po.attributes.process.data.attributes.name}>
+              <Td>
+                {
+                  po.attributes.production_order.data.attributes.process_detail
+                    .data.attributes.part_number
+                }
+              </Td>
+              <Td>
+                {
+                  po.attributes.production_order.data.attributes.process_detail
+                    .data.attributes.qty_machine
+                }
+              </Td>
+              <Td>
+                {
+                  po.attributes.production_order.data.attributes.process_detail
+                    .data.attributes.description
+                }
+              </Td>
+              <Td>{po.attributes.process.data.attributes.name}</Td>
+              <Td>
+                {format(
+                  new Date(po.attributes.datetime_start),
+                  "dd/MM '-' HH:mm'h'"
+                )}
+              </Td>
+              <Td>
+                {format(
+                  new Date(po.attributes.datetime_end),
+                  "dd/MM '-' HH:mm'h'"
+                )}
+              </Td>
               <Td>
                 <IconButton
                   variant="unstyled"
                   aria-label="Retornar OP"
                   onClick={() => {
-                    onStartOpen(), setCurrrentPoID(po.process_id)
+                    onStartOpen(),
+                      setCurrrentPoID(po.attributes.process.data.id)
                   }}
                   colorScheme="yellow"
                   size="sm"

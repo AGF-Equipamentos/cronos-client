@@ -26,9 +26,9 @@ export type CreatePoNewFormData = {
   process: string
 }
 
-// export type PoNewProps = {
-//   handleStart: (formData: CreatePoNewFormData) => void
-// }
+export type PoNewProps = {
+  handleStart: (formData: CreatePoNewFormData) => void
+}
 
 yup.setLocale({
   number: {
@@ -191,7 +191,7 @@ export default function PoNew() {
       <Flex mt="8" justify="flex-end">
         <HStack spacing="4">
           <Button
-            onClick={() => router.back()}
+            onClick={() => Router.back()}
             textColor="gray.800"
             leftIcon={<Icon as={FiX} fontSize="16" />}
           >
