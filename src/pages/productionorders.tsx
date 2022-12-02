@@ -32,7 +32,7 @@ export const getServerSideProps = async () => {
   // console.log(productionOrders.data)
   return {
     props: {
-      productionOrders: posMock
+      productionOrders: productionOrders.data
     }
   }
 }

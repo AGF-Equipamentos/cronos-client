@@ -23,7 +23,7 @@ import { FiPlay, FiX } from 'react-icons/fi'
 
 export type PoTableProps = {
   data: PO[]
-  handleStart: (process_id: string) => void
+  handleStart: (process_id: number) => void
 }
 
 export type PO = {
@@ -67,7 +67,7 @@ const PoTable = ({ data, handleStart }: PoTableProps) => {
     onClose: onStartClose
   } = useDisclosure()
   const cancelStartRef = useRef(null)
-  const [currentPoID, setCurrrentPoID] = useState('')
+  const [currentPoID, setCurrrentPoID] = useState(0)
 
   return (
     <Box bg="gray.800" p="6">
@@ -123,7 +123,7 @@ const PoTable = ({ data, handleStart }: PoTableProps) => {
         </Thead>
         <Tbody>
           {data.slice(0, 6).map((po) => (
-            <Tr key={po.attributes.process.data.attributes.name}>
+            <Tr key={po.id}>
               <Td>
                 {
                   po.attributes.production_order.data.attributes.process_detail

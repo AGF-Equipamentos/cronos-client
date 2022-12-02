@@ -72,8 +72,7 @@ export default function PoNew() {
         //standart_time:
       }
     })
-    console.log(values)
-    console.log(po.data)
+
     Router.push('productionorders')
   }
 
