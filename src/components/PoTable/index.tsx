@@ -29,32 +29,71 @@ export type PoTableProps = {
 export type PO = {
   id: number
   attributes: {
-    datetime_start: Date
-    datetime_end: Date
-    production_order: {
+    qty: number
+    obs: string
+    createdAt: Date
+    updatedAt: Date
+    finished: null
+    process_detail: {
       data: {
         id: number
         attributes: {
-          qty: number
-          process_detail: {
-            data: {
-              attributes: {
-                part_number: string
-                qty_machine: number
-                description: string
+          createdAt: Date
+          updatedAt: Date
+          part_number: string
+          qty_machine: number
+          description: string
+          cut: true
+          drilling: true
+          machining: true
+          cod_raw_material: string
+          raw_material: string
+          length_mm: number
+          part_weight_kg: number
+        }
+      }
+    }
+    po_times: {
+      data: [
+        {
+          id: number
+          attributes: {
+            datetime_start: Date
+            datetime_end: Date
+            createdAt: Date
+            updatedAt: Date
+            process: {
+              data: {
+                id: number
+                attributes: {
+                  name: string
+                  createdAt: Date
+                  updatedAt: Date
+                }
+              }
+            }
+          }
+        },
+        {
+          id: number
+          attributes: {
+            datetime_start: Date
+            datetime_end: null
+            createdAt: Date
+            updatedAt: Date
+            process: {
+              data: {
+                id: number
+                attributes: {
+                  name: string
+                  createdAt: Date
+                  updatedAt: Date
+                }
               }
             }
           }
         }
-      }
-    }
-    process: {
-      data: {
-        id: number
-        attributes: {
-          name: string
-        }
-      }
+      ]
     }
   }
 }
@@ -125,35 +164,37 @@ const PoTable = ({ data, handleStart }: PoTableProps) => {
           {data.slice(0, 6).map((po) => (
             <Tr key={po.id}>
               <Td>
-                {
-                  po.attributes.production_order.data.attributes.process_detail
-                    .data.attributes.part_number
-                }
+                {po.attributes.process_detail.data.attributes.part_number}
+              </Td>
+              <Td>
+                {po.attributes.process_detail.data.attributes.qty_machine}
+              </Td>
+              <Td>
+                {po.attributes.process_detail.data.attributes.description}
               </Td>
               <Td>
                 {
-                  po.attributes.production_order.data.attributes.process_detail
-                    .data.attributes.qty_machine
+                  po.attributes.po_times.data[0].attributes.process.data
+                    .attributes.name
                 }
               </Td>
-              <Td>
-                {
-                  po.attributes.production_order.data.attributes.process_detail
-                    .data.attributes.description
-                }
-              </Td>
-              <Td>{po.attributes.process.data.attributes.name}</Td>
               <Td>
                 {format(
-                  new Date(po.attributes.datetime_start),
+                  new Date(
+                    po.attributes.po_times.data[0].attributes.datetime_start
+                  ),
                   "dd/MM '-' HH:mm'h'"
                 )}
               </Td>
               <Td>
-                {format(
-                  new Date(po.attributes.datetime_end),
-                  "dd/MM '-' HH:mm'h'"
-                )}
+                {po.attributes.po_times.data[0].attributes.datetime_end
+                  ? format(
+                      new Date(
+                        po.attributes.po_times.data[0].attributes.datetime_end
+                      ),
+                      "dd/MM '-' HH:mm'h'"
+                    )
+                  : '-'}
               </Td>
               <Td>
                 <IconButton
@@ -161,7 +202,9 @@ const PoTable = ({ data, handleStart }: PoTableProps) => {
                   aria-label="Retornar OP"
                   onClick={() => {
                     onStartOpen(),
-                      setCurrrentPoID(po.attributes.process.data.id)
+                      setCurrrentPoID(
+                        po.attributes.po_times.data[0].attributes.process
+                      )
                   }}
                   colorScheme="yellow"
                   size="sm"
